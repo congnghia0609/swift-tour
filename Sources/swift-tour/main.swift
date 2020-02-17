@@ -544,18 +544,107 @@ let protocolValue: ExampleProtocol = a
 //=> error: value of type 'ExampleProtocol' has no member 'anotherProperty'
 
 
+// 7. Error Handling
+enum PrinterError: Error {
+    case outOfPaper
+    case noToner
+    case onFire
+}
+
+func send(job: Int, toPrinter printerName: String) throws -> String {
+    if printerName == "Never Has Toner" {
+        throw PrinterError.noToner
+    }
+    return "Job sent"
+}
+
+do {
+    let printerResponse = try send(job: 1024, toPrinter: "nghiatc")
+    print(printerResponse)
+} catch {
+    print(error)
+}
+//Job sent
+
+// multiple catch blocks
+do {
+    let printerResponse = try send(job: 1440, toPrinter: "nghiatc")
+    print(printerResponse)
+} catch PrinterError.onFire {
+    print("I'll just put this over here, with the rest of the fire.")
+} catch let printerError as PrinterError {
+    print("Printer error: \(printerError).")
+} catch {
+    print(error)
+}
+//Job sent
+
+let printerSuccess = try? send(job: 1884, toPrinter: "Mergenthaler")
+print(printerSuccess!)
+//Job sent
+let printerFailure = try? send(job: 1885, toPrinter: "Never Has Toner")
+if printerFailure != nil {
+    print(printerFailure!)
+}
+
+//Use 'defer' to write a block of code that is executed after all other code in the function,
+// just before the function returns.
+var fridgeIsOpen = false
+let fridgeContent = ["milk", "eggs", "leftovers"]
+
+func fridgeContains(_ food: String) -> Bool {
+    fridgeIsOpen = true
+    defer {
+        fridgeIsOpen = false
+    }
+    let result = fridgeContent.contains(food)
+    //print("fridgeContains.fridgeIsOpen:", fridgeIsOpen)
+    //fridgeContains.fridgeIsOpen: true
+    return result
+}
+let isc = fridgeContains("banana")
+//print(isc)
+//false
+//print(fridgeIsOpen)
+//false
 
 
+// 8. Generics
+func makeArray<Item>(repeating item: Item, numberOfTimes: Int) -> [Item] {
+    var result = [Item]()
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    return result
+}
+let arr = makeArray(repeating: "knock", numberOfTimes: 4)
+//print(arr)
+//["knock", "knock", "knock", "knock"]
 
+// Reimplement the Swift standard library's optional type
+enum OptionalValue<Wrapped> {
+    case none
+    case some(Wrapped)
+}
+var possibleInteger: OptionalValue<Int> = .none
+possibleInteger = .some(100)
+//print(possibleInteger)
+//some(100)
 
-
-
-
-
-
-
-
-
+func anyCommonElements<T: Sequence, U: Sequence>(_ lhs: T, _ rhs: U)
+                -> Bool where T.Element: Equatable, T.Element == U.Element {
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    return false
+}
+let anyc = anyCommonElements([1, 2, 3], [3])
+//print(anyc)
+//true
 
 
 
