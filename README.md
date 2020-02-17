@@ -1,2 +1,2 @@
 # swift-tour
-swift-tour is project learn swift programming  
+swift-tour is a project quick learn swift programming  
