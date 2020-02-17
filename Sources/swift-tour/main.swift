@@ -201,6 +201,81 @@ let statistics = calculateStatistics(scores: [5, 3, 100, 3, 9])
 //print(statistics.2)
 //120
 
+// Functions can be nested.
+func returnFifteen() -> Int {
+    var y = 10
+    func add() {
+        y += 5
+    }
+    add()
+    return y
+}
+var rf = returnFifteen()
+//print(rf)
+//15
+
+// Functions are a first-class type. A function can return another function as its value.
+func makeIncrementer() -> ((Int) -> Int) {
+    func addOne(number: Int) -> Int {
+        return 1 + number
+    }
+    return addOne
+}
+var increment = makeIncrementer()
+var inc = increment(7)
+//print(inc)
+//8
+
+// A function can take another function as one of its arguments.
+func hasAnyMatches(list: [Int], condition: (Int) -> Bool) -> Bool {
+    for item in list {
+        if condition(item) {
+            return true
+        }
+    }
+    return false
+}
+func lessThanTen(number: Int) -> Bool {
+    return number < 10
+}
+var numbers = [20, 19, 7, 12]
+var chm = hasAnyMatches(list: numbers, condition: lessThanTen)
+//print(chm)
+//true
+
+// Functions are actually a special case of closures: blocks of code that can be called later.
+var maptriple = numbers.map({ (number: Int) -> Int in
+    let result = 3 * number
+    return result
+})
+//print(maptriple)
+//[60, 57, 21, 36]
+
+var mapchan = numbers.map({ (number: Int) -> Int in
+    if number % 2 != 0 {
+        return 0
+    }
+    return number
+})
+//print(mapchan)
+//[20, 0, 0, 12]
+
+let mappedNumbers = numbers.map({number in 3*number})
+//print(mappedNumbers)
+//[60, 57, 21, 36]
+
+let sortedNumbers = numbers.sorted{$0 > $1}
+//print(sortedNumbers)
+//[20, 19, 12, 7]
+
+
+
+
+
+
+
+
+
 
 
 
