@@ -1,8 +1,14 @@
-// Build and Run
+//# Init project
+//mkdir swift-tour
+//cd swift-tour
+//swift package init --type executable
+
+//# Build and Run
 // swift build
 // .build/debug/swift-tour
 
 // https://docs.swift.org/swift-book/GuidedTour/GuidedTour.html
+
 
 // 0. A Swift Tour
 print("Hello, world!")

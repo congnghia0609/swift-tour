@@ -4,11 +4,17 @@ swift-tour is a cheat sheet, quick reference to learn swift programming
 ## Code quick reference
 Reference code detail in file [main.swift](https://github.com/congnghia0609/swift-tour/blob/master/Sources/swift-tour/main.swift)  
 ```swift
-// Build and Run
+//# Init project
+// mkdir swift-tour
+// cd swift-tour
+// swift package init --type executable
+
+//# Build and Run
 // swift build
 // .build/debug/swift-tour
 
 // https://docs.swift.org/swift-book/GuidedTour/GuidedTour.html
+
 
 // 0. A Swift Tour
 print("Hello, world!")
